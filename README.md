@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Запорозька Січ — лендінг ресторану
 
-## Getting Started
+Односторінковий сайт ресторану "Запорозька Січ" на о. Хортиця, Запоріжжя.
+Next.js 16 (App Router) + TypeScript strict + Tailwind v4 + shadcn/ui.
 
-First, run the development server:
+## Запуск локально
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Один раз — додайте Node у PATH вашого shell:
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+
+# Далі — щоразу:
+cd ~/Desktop/sich-zaporizka
 pnpm dev
-# or
-bun dev
+# → відкривайте http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production-білд:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm build && pnpm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Що де лежить
 
-## Learn More
+```
+src/
+├── app/
+│   ├── layout.tsx          # шрифти, метатеги, JsonLd, Header/Footer
+│   ├── page.tsx            # головна — імпортує всі секції
+│   ├── globals.css         # палітра, типографіка, анімації
+│   ├── sitemap.ts          # /sitemap.xml
+│   └── robots.ts           # /robots.txt
+├── components/
+│   ├── layout/             # Header, Footer, MobileMenu, StickyCallBar, Logo
+│   ├── sections/           # Hero, About, Afisha, Zones, Menu, Gallery, Banquets, Location, CtaBlock
+│   ├── shared/             # AfishaRow, ZoneCard, Divider
+│   ├── icons/              # SocialIcons (Instagram/Facebook/Telegram SVG)
+│   ├── ui/                 # shadcn (Button, Sheet, Tabs, Dialog)
+│   └── JsonLd.tsx          # schema.org Restaurant
+├── content/                # ВЕСЬ редагований контент
+│   ├── contacts.ts         # телефон, адреса, GPS, графік, соцмережі
+│   ├── about.ts            # текст "Про Січ"
+│   ├── afisha.ts           # 4 тижневі ритуали
+│   ├── zones.ts            # 4 зони ресторану
+│   ├── menu.ts             # 5 категорій страв з цінами
+│   ├── banquets.ts         # 3 типи банкетів
+│   └── gallery.ts          # 9 елементів галереї
+└── lib/
+    ├── site.ts             # назва, URL, опис сайту
+    ├── nav.ts              # пункти меню
+    ├── utils.ts            # cn() — Tailwind class merger
+    └── useParallax.ts      # CSS-parallax хук
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Що змінити перед запуском
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Контакти (`src/content/contacts.ts`)
+Замініть плейсхолдери на реальні:
+- `phone` / `phoneHref` — номер ресторану
+- `telegram.url`, `viber.url` — справжні посилання
+- `address.geo` — справжні координати GPS
+- `address.mapsUrl` — посилання на Google Maps
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. URL і назва сайту (`src/lib/site.ts`)
+- `url` — змініть на реальний домен перед деплоєм
 
-## Deploy on Vercel
+### 3. Фото
+Зараз скрізь градієнти-плейсхолдери. Реальні фото покладіть в:
+```
+public/images/hero/         — для Hero (1-3 шт.)
+public/images/about/        — для About
+public/images/afisha/       — для 4 рядків афіші
+public/images/zones/        — для 4 зон
+public/images/gallery/      — для 9 фото галереї
+public/images/banquets/     — для 3 типів банкетів
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Потім замініть `<div style={{ backgroundImage: ... }}>` плейсхолдери на:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```tsx
+import Image from "next/image";
+<Image src="/images/hero/main.jpg" alt="..." fill priority />
+```
+
+### 4. Меню (`src/content/menu.ts`)
+Тут плейсхолдер-страви — замініть на ваші. Структура:
+```ts
+{ id, name, description, price, highlight?: boolean }
+```
+
+### 5. Тижневі ритуали (`src/content/afisha.ts`)
+4 події — замініть або додайте свої.
+
+### 6. OG image
+Створіть `src/app/opengraph-image.jpg` (1200×630) — це буде у Facebook/Twitter при шарингу.
+
+## Деплой на Vercel
+
+1. Створіть акаунт на https://vercel.com
+2. `Add New Project` → `Import` репозиторій GitHub
+3. Vercel автоматично визначить Next.js — нічого не треба налаштовувати
+4. Натисніть Deploy
+5. Після першого деплою — підключіть свій домен у Project Settings
+
+## Технічні нотатки
+
+- **Tailwind v4**: конфіг живе в `src/app/globals.css` (через `@theme inline`), не в JS-файлі
+- **shadcn/ui (base-nova)**: на базі Base UI, а не Radix. Компоненти приймають `render` prop замість `asChild`. Для кастомних анкорів використовуємо `buttonVariants()` напряму
+- **Parallax**: без бібліотек — `useParallax` хук оновлює CSS-змінну, `prefers-reduced-motion` повністю вимикає ефект
+- **Lighthouse-цілі**: Performance ≥ 90, Accessibility ≥ 95, SEO ≥ 95, Best Practices ≥ 95
+- **JSON-LD schema.org Restaurant** валідується на https://search.google.com/test/rich-results
+
+## Скрипти
+
+```bash
+pnpm dev      # dev сервер на http://localhost:3000
+pnpm build    # production білд
+pnpm start    # production сервер (треба спочатку build)
+pnpm lint     # ESLint
+```

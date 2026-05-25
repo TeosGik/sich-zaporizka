@@ -1,26 +1,164 @@
 @import "tailwindcss";
 
+/* ─── Brand palette: "Запорозька Січ" ──────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Козацька палітра */
+  --color-sich-cream: #f5efe3; /* льон / рушник */
+  --color-sich-cream-soft: #ede4d2; /* трохи темніший льон для секцій */
+  --color-sich-ink: #1f1a14; /* темне дерево */
+  --color-sich-ink-soft: #3d3328; /* приглушений ink для secondary text */
+  --color-sich-wine: #7a1f1f; /* козацький бордо — CTA */
+  --color-sich-wine-deep: #5a1414;
+  --color-sich-grass: #3c4a2a; /* степовий зелений */
+  --color-sich-gold: #b8893d; /* мідь / стара монета */
+
+  /* shadcn semantic tokens — мапа на нашу палітру */
+  --background: var(--color-sich-cream);
+  --foreground: var(--color-sich-ink);
+
+  --card: #ffffff;
+  --card-foreground: var(--color-sich-ink);
+
+  --popover: #ffffff;
+  --popover-foreground: var(--color-sich-ink);
+
+  --primary: var(--color-sich-wine);
+  --primary-foreground: var(--color-sich-cream);
+
+  --secondary: var(--color-sich-grass);
+  --secondary-foreground: var(--color-sich-cream);
+
+  --muted: var(--color-sich-cream-soft);
+  --muted-foreground: var(--color-sich-ink-soft);
+
+  --accent: var(--color-sich-gold);
+  --accent-foreground: var(--color-sich-ink);
+
+  --destructive: #8b1d1d;
+  --destructive-foreground: #ffffff;
+
+  --border: #d8cdb8;
+  --input: #d8cdb8;
+  --ring: var(--color-sich-wine);
+
+  --radius: 0.5rem;
 }
 
+/* ─── Tailwind theme: expose tokens as utilities ────────────────────── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sich-cream: var(--color-sich-cream);
+  --color-sich-cream-soft: var(--color-sich-cream-soft);
+  --color-sich-ink: var(--color-sich-ink);
+  --color-sich-ink-soft: var(--color-sich-ink-soft);
+  --color-sich-wine: var(--color-sich-wine);
+  --color-sich-wine-deep: var(--color-sich-wine-deep);
+  --color-sich-grass: var(--color-sich-grass);
+  --color-sich-gold: var(--color-sich-gold);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base styles ───────────────────────────────────────────────────── */
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv01";
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-serif {
+  font-family: var(--font-serif), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: var(--color-sich-wine);
+  color: var(--color-sich-cream);
+}
+
+/* ─── Reduced motion: stop animations cold ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Custom: scroll-down indicator (для Hero) ─────────────────────── */
+@keyframes scroll-down {
+  0% {
+    transform: translateY(-6px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+
+.scroll-indicator {
+  animation: scroll-down 2s ease-in-out infinite;
+}
+
+/* ─── Custom: paper/льон texture overlay ───────────────────────────── */
+.bg-linen {
+  background-color: var(--color-sich-cream);
+  background-image:
+    radial-gradient(
+      ellipse at top left,
+      rgba(184, 137, 61, 0.04) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at bottom right,
+      rgba(60, 74, 42, 0.04) 0%,
+      transparent 50%
+    );
 }
