@@ -132,9 +132,9 @@ export const menu: readonly MenuCategory[] = [
     name: "Напої",
     dishes: [
       {
-        id: "medovukha",
-        name: "Медовуха домашня (300 мл)",
-        description: "На липовому меду, з імбиром або шипшиною. Подається холодною.",
+        id: "khrenovukha",
+        name: "Хреновуха домашня (50 мл)",
+        description: "Настоянка на хроні з медом і чорним перцем. Грітиме до самого вечора.",
         price: 95,
         highlight: true,
       },

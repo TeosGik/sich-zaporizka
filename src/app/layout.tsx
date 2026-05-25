@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/next";
+
 import { siteConfig } from "@/lib/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -75,6 +77,7 @@ export default function RootLayout({
         <main id="content">{children}</main>
         <Footer />
         <StickyCallBar />
+        <Analytics />
       </body>
     </html>
   );

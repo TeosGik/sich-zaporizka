@@ -41,7 +41,7 @@ export function Hero() {
           {siteConfig.tagline}
         </p>
         <p className="mt-6 max-w-xl text-base leading-relaxed text-sich-cream/70 sm:text-lg">
-          Козацька кухня, домашні медовухи, степова душа. Місце, куди приїздять
+          Козацька кухня, домашні хреновухи, степова душа. Місце, куди приїздять
           за смаком і залишаються за атмосферою.
         </p>
 
