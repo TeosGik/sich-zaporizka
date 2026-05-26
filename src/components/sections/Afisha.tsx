@@ -11,16 +11,16 @@ export function Afisha() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <header className="mx-auto mb-16 max-w-2xl text-center sm:mb-24">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-sich-gold">
-            Афіша
+            Свята
           </p>
           <h2
             id="afisha-title"
             className="font-serif text-4xl leading-tight tracking-tight sm:text-5xl md:text-6xl"
           >
-            Тиждень у Січі
+            Свята у Січі
           </h2>
           <p className="mt-4 text-base text-sich-ink-soft sm:text-lg">
-            Кожен день має свій настрій. Оберіть свій привід приїхати.
+            Чотири моменти року, коли в Січі особливо тепло.
           </p>
         </header>
 
