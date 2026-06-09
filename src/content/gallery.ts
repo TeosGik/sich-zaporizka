@@ -47,14 +47,14 @@ export const gallery: readonly GalleryItem[] = [
   },
   {
     id: "g7",
-    alt: "Вечір у Січі — затишок до пізньої ночі",
-    src: "/images/gallery/evening.jpg",
+    alt: "Гостя у вишиванці біля колодязя ресторану",
+    src: "/images/gallery/vyshyvanka.jpg",
     gradient: { from: "#5a1414", via: "#1f1a14", to: "#b8893d" },
   },
   {
     id: "g8",
-    alt: "Авторська страва з льодом — секретний рецепт шефа",
-    src: "/images/gallery/dish-2.jpg",
+    alt: "Літній сад ресторану з гортензіями",
+    src: "/images/gallery/garden.jpg",
     gradient: { from: "#3c4a2a", via: "#1f1a14", to: "#7a1f1f" },
   },
   {

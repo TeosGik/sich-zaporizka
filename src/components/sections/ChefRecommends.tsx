@@ -30,7 +30,7 @@ export function ChefRecommends() {
           </p>
         </header>
 
-        <ul className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-6 sm:gap-8 md:grid-cols-2">
           {chefRecommends.map((dish) => (
             <li
               key={dish.id}

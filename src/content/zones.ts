@@ -39,7 +39,7 @@ export const zones: readonly Zone[] = [
       "Дерев'яний настил під шатром з виглядом на Дніпро й острів. Краще місце Січі для тихого заходу сонця.",
     capacity: "до 60 осіб",
     bestFor: "Весна-літо · романтичні вечори",
-    src: "/images/banquets/anniversary.jpg",
+    src: "/images/zones/terrace.jpg",
     gradient: { from: "#b8893d", via: "#3c4a2a", to: "#1f1a14" },
   },
   {
