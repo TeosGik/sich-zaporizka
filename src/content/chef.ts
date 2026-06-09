@@ -34,13 +34,13 @@ export const chefRecommends: readonly ChefDish[] = [
     gradient: { from: "#b8893d", via: "#3c4a2a", to: "#1f1a14" },
   },
   {
-    id: "som",
-    name: "Сом у глиняній печі",
-    category: "Хіт від шефа",
+    id: "khrinovukha",
+    name: "Хріновуха домашня",
+    category: "Фірмовий напій",
     description:
-      "Дніпровський сом запікаємо цілою тушкою з лимоном, кропом і чебрецем. До нього — печена на жирі картопля та маринований часник.",
-    price: 420,
-    src: "/images/gallery/dish-2.jpg",
+      "Настоянка на хроні з медом і чорним перцем — наш фірмовий напій з шинку. Грітиме до самого вечора. Подається холодною в чарці 50 мл.",
+    price: 100,
+    src: "/images/gallery/drinks.jpg",
     gradient: { from: "#1f1a14", via: "#7a1f1f", to: "#b8893d" },
   },
   {
