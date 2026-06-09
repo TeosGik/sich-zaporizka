@@ -1,6 +1,17 @@
 "use client";
 
 import {
+  Sandwich,
+  Soup,
+  Utensils,
+  Flame,
+  IceCream,
+  Wine,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
+
+import {
   Tabs,
   TabsList,
   TabsTrigger,
@@ -9,19 +20,30 @@ import {
 import { menu, type Dish } from "@/content/menu";
 import { cn } from "@/lib/utils";
 
+/** Іконка + акцентний колір для кожної з 7 головних категорій */
+const categoryMeta: Record<
+  string,
+  { Icon: LucideIcon; ringColor: string }
+> = {
+  appetizers: { Icon: Sandwich, ringColor: "ring-sich-gold/40" },
+  "first-courses": { Icon: Soup, ringColor: "ring-sich-wine/40" },
+  "main-courses": { Icon: Utensils, ringColor: "ring-sich-wine/40" },
+  grill: { Icon: Flame, ringColor: "ring-orange-500/40" },
+  desserts: { Icon: IceCream, ringColor: "ring-pink-400/40" },
+  drinks: { Icon: Wine, ringColor: "ring-sich-grass/40" },
+  banquet: { Icon: Sparkles, ringColor: "ring-sich-gold/40" },
+};
+
 function formatPrice(dish: Dish): string {
-  // Велика порція (1л) поряд з малою (330мл)
   if (dish.priceLarge !== undefined && dish.price !== null) {
     return `${dish.price} / ${dish.priceLarge} ₴`;
   }
-  // Вино: келих + пляшка
   if (dish.priceBottle !== undefined) {
     if (dish.price === null) {
       return `пляшка ${dish.priceBottle} ₴`;
     }
     return `${dish.price} / ${dish.priceBottle} ₴`;
   }
-  // Звичайна страва
   if (dish.price !== null) {
     return `${dish.price} ₴`;
   }
@@ -36,7 +58,7 @@ export function Menu() {
       className="bg-sich-cream-soft py-20 sm:py-28"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <header className="mx-auto mb-12 max-w-2xl text-center sm:mb-16">
+        <header className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-sich-gold">
             Меню
           </p>
@@ -53,73 +75,107 @@ export function Menu() {
         </header>
 
         <Tabs defaultValue={menu[0].id} className="flex-col items-center">
-          {/* Скролимий ряд табів на mobile */}
-          <div className="-mx-4 mb-10 overflow-x-auto px-4 sm:mx-0 sm:overflow-visible sm:px-0">
-            <TabsList className="mx-auto inline-flex h-auto flex-nowrap bg-background p-1.5">
-              {menu.map((cat) => (
-                <TabsTrigger
-                  key={cat.id}
-                  value={cat.id}
-                  className="h-10 whitespace-nowrap px-4 text-sm sm:text-base"
-                >
-                  {cat.name}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+          {/* ─── Tab list з краєвим градієнтом для mobile horizontal scroll ── */}
+          <div className="relative -mx-4 mb-10 sm:mx-0 sm:mb-12">
+            {/* Edge fade-маски (тільки на mobile) для індикації scroll */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-sich-cream-soft to-transparent sm:hidden" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-l from-sich-cream-soft to-transparent sm:hidden" />
+
+            <div className="overflow-x-auto px-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:px-0">
+              <TabsList className="mx-auto inline-flex h-auto flex-nowrap gap-1 rounded-full border border-sich-gold/20 bg-background p-1.5 shadow-sm">
+                {menu.map((cat) => {
+                  const Icon = categoryMeta[cat.id]?.Icon;
+                  return (
+                    <TabsTrigger
+                      key={cat.id}
+                      value={cat.id}
+                      className={cn(
+                        "h-11 gap-2 whitespace-nowrap rounded-full px-4 text-sm font-medium transition-all duration-200 sm:px-5 sm:text-base",
+                        "data-active:!bg-sich-wine data-active:!text-sich-cream data-active:!shadow-md",
+                      )}
+                    >
+                      {Icon && <Icon aria-hidden="true" className="size-4" />}
+                      <span>{cat.name}</span>
+                    </TabsTrigger>
+                  );
+                })}
+              </TabsList>
+            </div>
           </div>
 
-          {menu.map((cat) => (
-            <TabsContent key={cat.id} value={cat.id} className="w-full">
-              <div className="space-y-12 sm:space-y-16">
-                {cat.subCategories.map((sub) => (
-                  <section
-                    key={sub.id}
-                    aria-labelledby={`sub-${sub.id}`}
-                  >
-                    <h3
-                      id={`sub-${sub.id}`}
-                      className="mb-5 border-b border-sich-gold/30 pb-2 font-serif text-2xl text-sich-ink sm:text-3xl"
+          {menu.map((cat) => {
+            const Icon = categoryMeta[cat.id]?.Icon;
+            return (
+              <TabsContent key={cat.id} value={cat.id} className="w-full">
+                <div className="space-y-6 sm:space-y-8">
+                  {cat.subCategories.map((sub, subIndex) => (
+                    <section
+                      key={sub.id}
+                      aria-labelledby={`sub-${sub.id}`}
+                      className={cn(
+                        "overflow-hidden rounded-xl border border-sich-gold/15 shadow-sm transition-shadow hover:shadow-md",
+                        // Чергуємо тон фону для розділення
+                        subIndex % 2 === 0
+                          ? "bg-background"
+                          : "bg-sich-cream/50",
+                      )}
                     >
-                      {sub.title}
-                    </h3>
-                    <ul className="grid divide-y divide-border/50 sm:divide-y-0 sm:gap-y-2">
-                      {sub.dishes.map((dish, i) => (
-                        <li
-                          key={`${sub.id}-${i}`}
-                          className={cn(
-                            "grid grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-4 sm:rounded-lg sm:px-5",
-                            dish.highlight && "sm:bg-card sm:shadow-sm",
-                          )}
+                      {/* ─── Заголовок підкатегорії ──────────────────── */}
+                      <header className="flex items-center gap-3 border-b border-sich-gold/20 bg-gradient-to-r from-sich-gold/8 to-transparent px-5 py-4 sm:gap-4 sm:px-7 sm:py-5">
+                        <span
+                          aria-hidden="true"
+                          className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sich-wine/10 text-sich-wine sm:size-10"
                         >
-                          <h4 className="font-serif text-lg leading-tight sm:text-xl">
-                            {dish.name}
-                            {dish.highlight && (
-                              <span className="ml-2 align-middle text-[10px] font-medium uppercase tracking-wider text-sich-gold">
-                                · хіт
-                              </span>
+                          {Icon && <Icon className="size-4 sm:size-5" />}
+                        </span>
+                        <h3
+                          id={`sub-${sub.id}`}
+                          className="font-serif text-xl leading-tight text-sich-ink sm:text-2xl"
+                        >
+                          {sub.title}
+                        </h3>
+                      </header>
+
+                      {/* ─── Список страв ────────────────────────────── */}
+                      <ul className="divide-y divide-sich-gold/10">
+                        {sub.dishes.map((dish, i) => (
+                          <li
+                            key={`${sub.id}-${i}`}
+                            className={cn(
+                              "grid grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 px-5 py-3.5 transition-colors hover:bg-sich-gold/[0.04] sm:px-7 sm:py-4",
+                              dish.highlight && "bg-sich-gold/[0.06]",
                             )}
-                            {dish.weight && (
-                              <span className="ml-2 align-middle text-xs text-muted-foreground">
-                                · {dish.weight} г
-                              </span>
+                          >
+                            <h4 className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 font-serif text-base leading-tight text-sich-ink sm:text-lg">
+                              <span>{dish.name}</span>
+                              {dish.weight && (
+                                <span className="text-xs font-normal text-muted-foreground sm:text-sm">
+                                  · {dish.weight} г
+                                </span>
+                              )}
+                              {dish.highlight && (
+                                <span className="inline-flex items-center rounded-full bg-sich-wine/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-sich-wine">
+                                  Хіт
+                                </span>
+                              )}
+                            </h4>
+                            <span className="self-start whitespace-nowrap font-serif text-base font-semibold text-sich-wine sm:text-lg">
+                              {formatPrice(dish)}
+                            </span>
+                            {dish.desc && (
+                              <p className="col-span-2 -mt-1 text-sm leading-snug text-sich-ink-soft">
+                                {dish.desc}
+                              </p>
                             )}
-                          </h4>
-                          <span className="self-start whitespace-nowrap font-serif text-base font-medium text-sich-wine sm:text-lg">
-                            {formatPrice(dish)}
-                          </span>
-                          {dish.desc && (
-                            <p className="col-span-2 text-sm leading-relaxed text-sich-ink-soft">
-                              {dish.desc}
-                            </p>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ))}
-              </div>
-            </TabsContent>
-          ))}
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  ))}
+                </div>
+              </TabsContent>
+            );
+          })}
         </Tabs>
       </div>
     </section>
