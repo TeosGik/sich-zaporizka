@@ -40,8 +40,13 @@ export function Hero() {
         <p className="mt-6 max-w-2xl font-serif text-xl italic text-sich-cream/85 sm:text-2xl md:text-3xl">
           {siteConfig.tagline}
         </p>
+        <p className="mt-4 flex items-center gap-3 font-serif text-sm tracking-[0.15em] uppercase text-sich-gold sm:text-base">
+          <span aria-hidden="true" className="h-px w-8 bg-sich-gold/60" />
+          {siteConfig.motto}
+          <span aria-hidden="true" className="h-px w-8 bg-sich-gold/60" />
+        </p>
         <p className="mt-6 max-w-xl text-base leading-relaxed text-sich-cream/70 sm:text-lg">
-          Козацька кухня, домашні хреновухи, степова душа. Місце, куди приїздять
+          Козацька кухня, домашні хріновухи, степова душа. Місце, куди приїздять
           за смаком і залишаються за атмосферою.
         </p>
 

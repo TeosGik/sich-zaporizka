@@ -35,7 +35,7 @@ export const gallery: readonly GalleryItem[] = [
   },
   {
     id: "g5",
-    alt: "Українські напої та домашні хреновухи",
+    alt: "Українські напої та домашні хріновухи",
     src: "/images/gallery/drinks.jpg",
     gradient: { from: "#1f1a14", via: "#5a1414", to: "#3d3328" },
   },

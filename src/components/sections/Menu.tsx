@@ -6,8 +6,27 @@ import {
   TabsTrigger,
   TabsContent,
 } from "@/components/ui/tabs";
-import { menu } from "@/content/menu";
+import { menu, type Dish } from "@/content/menu";
 import { cn } from "@/lib/utils";
+
+function formatPrice(dish: Dish): string {
+  // Велика порція (1л) поряд з малою (330мл)
+  if (dish.priceLarge !== undefined && dish.price !== null) {
+    return `${dish.price} / ${dish.priceLarge} ₴`;
+  }
+  // Вино: келих + пляшка
+  if (dish.priceBottle !== undefined) {
+    if (dish.price === null) {
+      return `пляшка ${dish.priceBottle} ₴`;
+    }
+    return `${dish.price} / ${dish.priceBottle} ₴`;
+  }
+  // Звичайна страва
+  if (dish.price !== null) {
+    return `${dish.price} ₴`;
+  }
+  return "за запитом";
+}
 
 export function Menu() {
   return (
@@ -28,7 +47,7 @@ export function Menu() {
             Що подаємо
           </h2>
           <p className="mt-4 text-base text-sich-ink-soft sm:text-lg">
-            Чесні смаки української кухні. На відкритому вогні, у глиняних
+            Понад 300 позицій української кухні. На відкритому вогні, у глиняних
             печах, з продуктів від місцевих господарств.
           </p>
         </header>
@@ -51,32 +70,54 @@ export function Menu() {
 
           {menu.map((cat) => (
             <TabsContent key={cat.id} value={cat.id} className="w-full">
-              <ul className="grid divide-y divide-border/50 sm:divide-y-0 sm:gap-y-2">
-                {cat.dishes.map((dish) => (
-                  <li
-                    key={dish.id}
-                    className={cn(
-                      "grid grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-5 sm:rounded-lg sm:px-5",
-                      dish.highlight && "sm:bg-card sm:shadow-sm",
-                    )}
+              <div className="space-y-12 sm:space-y-16">
+                {cat.subCategories.map((sub) => (
+                  <section
+                    key={sub.id}
+                    aria-labelledby={`sub-${sub.id}`}
                   >
-                    <h3 className="font-serif text-xl leading-tight sm:text-2xl">
-                      {dish.name}
-                      {dish.highlight && (
-                        <span className="ml-2 align-middle text-xs font-medium uppercase tracking-wider text-sich-gold">
-                          · хіт
-                        </span>
-                      )}
+                    <h3
+                      id={`sub-${sub.id}`}
+                      className="mb-5 border-b border-sich-gold/30 pb-2 font-serif text-2xl text-sich-ink sm:text-3xl"
+                    >
+                      {sub.title}
                     </h3>
-                    <span className="self-start font-serif text-lg font-medium text-sich-wine sm:text-xl">
-                      {dish.price} ₴
-                    </span>
-                    <p className="col-span-2 text-sm leading-relaxed text-sich-ink-soft sm:text-base">
-                      {dish.description}
-                    </p>
-                  </li>
+                    <ul className="grid divide-y divide-border/50 sm:divide-y-0 sm:gap-y-2">
+                      {sub.dishes.map((dish, i) => (
+                        <li
+                          key={`${sub.id}-${i}`}
+                          className={cn(
+                            "grid grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-4 sm:rounded-lg sm:px-5",
+                            dish.highlight && "sm:bg-card sm:shadow-sm",
+                          )}
+                        >
+                          <h4 className="font-serif text-lg leading-tight sm:text-xl">
+                            {dish.name}
+                            {dish.highlight && (
+                              <span className="ml-2 align-middle text-[10px] font-medium uppercase tracking-wider text-sich-gold">
+                                · хіт
+                              </span>
+                            )}
+                            {dish.weight && (
+                              <span className="ml-2 align-middle text-xs text-muted-foreground">
+                                · {dish.weight} г
+                              </span>
+                            )}
+                          </h4>
+                          <span className="self-start whitespace-nowrap font-serif text-base font-medium text-sich-wine sm:text-lg">
+                            {formatPrice(dish)}
+                          </span>
+                          {dish.desc && (
+                            <p className="col-span-2 text-sm leading-relaxed text-sich-ink-soft">
+                              {dish.desc}
+                            </p>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
                 ))}
-              </ul>
+              </div>
             </TabsContent>
           ))}
         </Tabs>
