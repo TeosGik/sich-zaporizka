@@ -142,11 +142,11 @@ export function Menu() {
                           <li
                             key={`${sub.id}-${i}`}
                             className={cn(
-                              "grid grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 px-5 py-3.5 transition-colors hover:bg-sich-gold/[0.04] sm:px-7 sm:py-4",
+                              "grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-1.5 px-5 py-3.5 transition-colors hover:bg-sich-gold/[0.04] sm:px-7 sm:py-4",
                               dish.highlight && "bg-sich-gold/[0.06]",
                             )}
                           >
-                            <h4 className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 font-serif text-base leading-tight text-sich-ink sm:text-lg">
+                            <h4 className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5 break-words font-serif text-base leading-tight text-sich-ink sm:text-lg">
                               <span>{dish.name}</span>
                               {dish.weight && (
                                 <span className="text-xs font-normal text-muted-foreground sm:text-sm">
