@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 const { lat, lng } = contacts.address.geo;
 // Google Maps embed URL (без потреби в API key)
-const mapSrc = `https://www.google.com/maps?q=${lat},${lng}&hl=uk&z=15&output=embed`;
+const mapSrc = `https://www.google.com/maps?q=${lat},${lng}&hl=uk&z=16&output=embed`;
 
 /** Декоративна роза-вітрів у козацькому стилі (Пн/Пд/Сх/Зх) */
 function CompassRose() {
@@ -207,8 +207,8 @@ export function Location() {
             {/* Зовнішня декоративна рамка-подвійний кант */}
             <div className="relative aspect-[4/3] rounded-lg border-2 border-double border-sich-gold/50 bg-sich-cream p-2 shadow-xl lg:aspect-auto lg:min-h-[450px]">
               {/* Внутрішня рамка з картою */}
-              <div className="relative h-full w-full overflow-hidden rounded-md border border-sich-gold/30">
-                {/* Карта одразу відкрита — без click-to-load */}
+              <div className="relative h-full w-full overflow-hidden rounded-md">
+                {/* Карта — чиста, без фільтрів */}
                 <iframe
                   src={mapSrc}
                   title="Карта розташування ресторану Запорозька Січ на острові Хортиця"
@@ -216,31 +216,20 @@ export function Location() {
                   referrerPolicy="no-referrer-when-downgrade"
                   allowFullScreen
                   className="absolute inset-0 h-full w-full border-0"
-                  style={{
-                    // М'який sepia щоб виглядало як стара мапа
-                    filter: "sepia(0.3) saturate(0.9) contrast(0.95)",
-                  }}
                 />
 
-                {/* Декорації — НЕ перехоплюють кліки (pointer-events-none) */}
+                {/* Дискретна роза вітрів у правому верхньому куті */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0"
+                  className="pointer-events-none absolute right-3 top-3 sm:right-4 sm:top-4"
                 >
-                  <CornerOrnament className="absolute left-1 top-1" />
-                  <CornerOrnament className="absolute right-1 top-1 rotate-90" />
-                  <CornerOrnament className="absolute bottom-1 right-1 rotate-180" />
-                  <CornerOrnament className="absolute bottom-1 left-1 -rotate-90" />
-                  {/* Роза-вітрів у правому верхньому куті */}
-                  <div className="absolute right-3 top-3 sm:right-4 sm:top-4">
-                    <CompassRose />
-                  </div>
+                  <CompassRose />
                 </div>
               </div>
             </div>
 
             <p className="mt-3 text-center text-xs italic text-sich-ink-soft sm:text-sm">
-              Карта стилізована під старовинні козацькі мапи Запорозької Січі
+              Острів Хортиця, біля Запорозької арки
             </p>
           </div>
         </div>

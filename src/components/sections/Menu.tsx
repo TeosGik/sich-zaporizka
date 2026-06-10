@@ -8,7 +8,6 @@ import {
   IceCream,
   Wine,
   Sparkles,
-  Info,
   type LucideIcon,
 } from "lucide-react";
 
@@ -82,8 +81,8 @@ export function Menu() {
             <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-sich-cream-soft to-transparent sm:hidden" />
             <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-l from-sich-cream-soft to-transparent sm:hidden" />
 
-            <div className="overflow-x-auto px-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:px-0">
-              <TabsList className="mx-auto inline-flex h-auto flex-nowrap gap-1 rounded-full border border-sich-gold/20 bg-background p-1.5 shadow-sm">
+            <div className="overflow-x-auto px-4 pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:flex sm:justify-center sm:px-0">
+              <TabsList className="flex h-auto w-max flex-nowrap gap-1 rounded-full border border-sich-gold/20 bg-background p-1.5 shadow-sm">
                 {menu.map((cat) => {
                   const Icon = categoryMeta[cat.id]?.Icon;
                   return (
@@ -179,54 +178,27 @@ export function Menu() {
           })}
         </Tabs>
 
-        {/* ─── Сервісний збір ────────────────────────────────────── */}
+        {/* ─── Плата за обслуговування (делікатна примітка) ──────── */}
         <aside
-          aria-labelledby="service-charge-title"
-          className="mx-auto mt-12 max-w-3xl rounded-xl border border-sich-gold/30 bg-sich-cream/70 p-6 shadow-sm sm:mt-16 sm:p-8"
+          aria-labelledby="service-note-title"
+          className="mx-auto mt-10 max-w-2xl rounded-lg border border-sich-gold/20 bg-sich-cream/40 p-5 sm:mt-14 sm:p-6"
         >
-          <div className="flex items-start gap-4">
-            <span
-              aria-hidden="true"
-              className="flex size-10 shrink-0 items-center justify-center rounded-full bg-sich-wine/10 text-sich-wine sm:size-12"
-            >
-              <Info className="size-5 sm:size-6" />
-            </span>
-            <div className="min-w-0">
-              <h3
-                id="service-charge-title"
-                className="font-serif text-lg font-semibold text-sich-ink sm:text-xl"
-              >
-                Шановні гості!
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-sich-ink-soft sm:text-base">
-                До рахунку додається плата за обслуговування:
-              </p>
-              <ul className="mt-3 space-y-1.5 text-sm sm:text-base">
-                <li className="flex items-start gap-2">
-                  <span aria-hidden="true" className="shrink-0">🌿</span>
-                  <span>
-                    <strong className="font-semibold text-sich-wine">5%</strong>
-                    {" "}— за обслуговування в будь-якій локації ресторану
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span aria-hidden="true" className="shrink-0">🌿</span>
-                  <span>
-                    <strong className="font-semibold text-sich-wine">10%</strong>
-                    {" "}— за обслуговування в альтанках
-                  </span>
-                </li>
-              </ul>
-              <p className="mt-4 text-sm italic leading-relaxed text-sich-ink-soft sm:text-base">
-                Плата за обслуговування спрямовується на підтримку команди,
-                яка дбала про Ваш відпочинок і працювала над Вашим замовленням.
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-sich-ink-soft sm:text-base">
-                Дякуємо, що обираєте «Запорозьку Січ». Нам приємно бути
-                гостинними для Вас! 🌲
-              </p>
-            </div>
-          </div>
+          <p
+            id="service-note-title"
+            className="text-xs font-medium uppercase tracking-[0.2em] text-sich-gold"
+          >
+            До відома гостей
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-sich-ink-soft sm:text-base">
+            До рахунку додається плата за обслуговування —{" "}
+            <strong className="font-semibold text-sich-wine">5%</strong> у
+            будь-якій локації ресторану, або{" "}
+            <strong className="font-semibold text-sich-wine">10%</strong> в
+            альтанках. Кошти йдуть нашій команді, яка дбала про Ваш відпочинок.
+          </p>
+          <p className="mt-3 text-sm italic leading-relaxed text-sich-ink-soft sm:text-base">
+            Дякуємо, що обираєте «Запорозьку Січ». 🌲
+          </p>
         </aside>
       </div>
     </section>
