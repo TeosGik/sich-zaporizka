@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { Phone, MapPin, Clock, Car } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
@@ -8,7 +5,8 @@ import { contacts } from "@/content/contacts";
 import { cn } from "@/lib/utils";
 
 const { lat, lng } = contacts.address.geo;
-const mapSrc = `https://maps.google.com/maps?q=${lat},${lng}&hl=uk&z=14&output=embed`;
+// Google Maps embed URL (без потреби в API key)
+const mapSrc = `https://www.google.com/maps?q=${lat},${lng}&hl=uk&z=15&output=embed`;
 
 /** Декоративна роза-вітрів у козацькому стилі (Пн/Пд/Сх/Зх) */
 function CompassRose() {
@@ -60,8 +58,6 @@ function CornerOrnament({ className }: { className?: string }) {
 }
 
 export function Location() {
-  const [mapLoaded, setMapLoaded] = useState(false);
-
   return (
     <section
       id="location"
@@ -212,86 +208,33 @@ export function Location() {
             <div className="relative aspect-[4/3] rounded-lg border-2 border-double border-sich-gold/50 bg-sich-cream p-2 shadow-xl lg:aspect-auto lg:min-h-[450px]">
               {/* Внутрішня рамка з картою */}
               <div className="relative h-full w-full overflow-hidden rounded-md border border-sich-gold/30">
-                {mapLoaded ? (
-                  <iframe
-                    src={mapSrc}
-                    title="Карта розташування ресторану Запорозька Січ"
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="absolute inset-0 h-full w-full border-0"
-                    style={{
-                      // М'який sepia щоб виглядало як стара мапа
-                      filter: "sepia(0.35) saturate(0.85) contrast(0.95)",
-                    }}
-                  />
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setMapLoaded(true)}
-                    className="group relative h-full w-full"
-                    aria-label="Завантажити інтерактивну мапу"
-                  >
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-0"
-                      style={{
-                        backgroundImage: `
-                          radial-gradient(ellipse at 60% 40%, rgba(184, 137, 61, 0.45), transparent 55%),
-                          radial-gradient(circle at 30% 70%, rgba(60, 74, 42, 0.3), transparent 50%),
-                          linear-gradient(135deg, #ede4d2 0%, #c9b58a 100%)
-                        `,
-                      }}
-                    />
-                    {/* Декоративний "острів" — стилізовано Хортицю */}
-                    <svg
-                      viewBox="0 0 200 150"
-                      aria-hidden="true"
-                      className="absolute inset-0 h-full w-full opacity-50"
-                      preserveAspectRatio="xMidYMid meet"
-                    >
-                      <path
-                        d="M40 65 Q60 50 90 55 Q130 60 150 75 Q160 95 140 105 Q110 110 75 100 Q45 90 40 65 Z"
-                        fill="rgba(60, 74, 42, 0.4)"
-                        stroke="rgba(122, 31, 31, 0.6)"
-                        strokeWidth="0.8"
-                      />
-                      <text x="95" y="83" fontSize="6" fontFamily="serif" fill="rgba(31,26,20,0.8)" textAnchor="middle">
-                        о. Хортиця
-                      </text>
-                      <circle cx="98" cy="78" r="2" fill="#7a1f1f" />
-                      {/* Дніпро */}
-                      <path
-                        d="M0 75 Q40 70 80 75 T160 80 T200 75"
-                        fill="none"
-                        stroke="rgba(60, 80, 130, 0.45)"
-                        strokeWidth="3"
-                      />
-                      <text x="20" y="68" fontSize="5" fontFamily="serif" fontStyle="italic" fill="rgba(60,80,130,0.7)">Дніпро</text>
-                    </svg>
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-0 flex items-center justify-center"
-                    >
-                      <div className="flex flex-col items-center gap-3 rounded-md border border-sich-gold/30 bg-sich-cream/95 px-6 py-4 text-sich-ink shadow-md transition-transform group-hover:scale-105">
-                        <MapPin className="size-6 text-sich-wine" />
-                        <span className="font-serif text-base font-medium sm:text-lg">Показати мапу</span>
-                        <span className="text-xs text-muted-foreground">
-                          Інтерактивна Google Maps
-                        </span>
-                      </div>
-                    </div>
-                  </button>
-                )}
+                {/* Карта одразу відкрита — без click-to-load */}
+                <iframe
+                  src={mapSrc}
+                  title="Карта розташування ресторану Запорозька Січ на острові Хортиця"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                  className="absolute inset-0 h-full w-full border-0"
+                  style={{
+                    // М'який sepia щоб виглядало як стара мапа
+                    filter: "sepia(0.3) saturate(0.9) contrast(0.95)",
+                  }}
+                />
 
-                {/* Орнаменти у 4 кутах рамки */}
-                <CornerOrnament className="absolute left-1 top-1 z-10" />
-                <CornerOrnament className="absolute right-1 top-1 z-10 rotate-90" />
-                <CornerOrnament className="absolute bottom-1 right-1 z-10 rotate-180" />
-                <CornerOrnament className="absolute bottom-1 left-1 z-10 -rotate-90" />
-
-                {/* Роза-вітрів у правому верхньому куті */}
-                <div className="absolute right-3 top-3 z-10 sm:right-4 sm:top-4">
-                  <CompassRose />
+                {/* Декорації — НЕ перехоплюють кліки (pointer-events-none) */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0"
+                >
+                  <CornerOrnament className="absolute left-1 top-1" />
+                  <CornerOrnament className="absolute right-1 top-1 rotate-90" />
+                  <CornerOrnament className="absolute bottom-1 right-1 rotate-180" />
+                  <CornerOrnament className="absolute bottom-1 left-1 -rotate-90" />
+                  {/* Роза-вітрів у правому верхньому куті */}
+                  <div className="absolute right-3 top-3 sm:right-4 sm:top-4">
+                    <CompassRose />
+                  </div>
                 </div>
               </div>
             </div>
