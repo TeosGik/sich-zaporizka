@@ -69,8 +69,8 @@ export function Menu() {
             Що подаємо
           </h2>
           <p className="mt-4 text-base text-sich-ink-soft sm:text-lg">
-            Понад 300 позицій української кухні. На відкритому вогні, у глиняних
-            печах, з продуктів від місцевих господарств.
+            Понад 300 позицій української кухні. На відкритому вогні,
+            з продуктів від місцевих господарств.
           </p>
         </header>
 
@@ -90,11 +90,11 @@ export function Menu() {
                       key={cat.id}
                       value={cat.id}
                       className={cn(
-                        "h-11 gap-2 whitespace-nowrap rounded-full px-4 text-sm font-medium transition-all duration-200 sm:px-5 sm:text-base",
+                        "h-9 gap-1.5 whitespace-nowrap rounded-full px-3 text-xs font-medium transition-all duration-200 sm:h-11 sm:gap-2 sm:px-5 sm:text-base",
                         "data-active:!bg-sich-wine data-active:!text-sich-cream data-active:!shadow-md",
                       )}
                     >
-                      {Icon && <Icon aria-hidden="true" className="size-4" />}
+                      {Icon && <Icon aria-hidden="true" className="size-3.5 sm:size-4" />}
                       <span>{cat.name}</span>
                     </TabsTrigger>
                   );

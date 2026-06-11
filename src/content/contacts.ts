@@ -27,9 +27,9 @@ export const contacts = {
   },
 
   hours: {
-    label: "Щодня 11:00 – 23:00",
+    label: "Щодня 11:00 – 22:00",
     open: "11:00",
-    close: "23:00",
+    close: "22:00",
     days: "Mo-Su",
   },
 

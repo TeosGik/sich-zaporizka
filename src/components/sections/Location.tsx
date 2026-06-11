@@ -5,8 +5,8 @@ import { contacts } from "@/content/contacts";
 import { cn } from "@/lib/utils";
 
 const { lat, lng } = contacts.address.geo;
-// Google Maps embed URL (без потреби в API key)
-const mapSrc = `https://www.google.com/maps?q=${lat},${lng}&hl=uk&z=16&output=embed`;
+// Google Maps embed URL — старий «maps.google.com» формат працює стабільно без API key
+const mapSrc = `https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
 
 /** Декоративна роза-вітрів у козацькому стилі (Пн/Пд/Сх/Зх) */
 function CompassRose() {
