@@ -1,8 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
-import { CossackIcon } from "@/components/icons/CossackIcon";
 
 type LogoProps = {
   className?: string;
@@ -20,8 +20,19 @@ export function Logo({ className, variant = "default" }: LogoProps) {
         className,
       )}
     >
-      {/* Кастомний козак-логотип у крузі */}
-      <CossackIcon className="size-11 shrink-0 drop-shadow-sm sm:size-12" />
+      {/* Реальне фото козацької скульптури з подвір'я ресторану,
+          у круглому золотому обрамленні */}
+      <span className="relative inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-sich-cream p-0.5 shadow-md ring-2 ring-sich-gold/60 sm:size-14">
+        <span className="relative h-full w-full overflow-hidden rounded-full">
+          <Image
+            src="/images/gallery/cossack.jpg"
+            alt=""
+            fill
+            sizes="56px"
+            className="object-cover object-[center_30%]"
+          />
+        </span>
+      </span>
 
       {variant === "compact" ? (
         <span className="text-xl font-semibold">ЗС</span>
