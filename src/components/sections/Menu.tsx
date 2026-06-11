@@ -75,14 +75,9 @@ export function Menu() {
         </header>
 
         <Tabs defaultValue={menu[0].id} className="flex-col items-center">
-          {/* ─── Tab list з краєвим градієнтом для mobile horizontal scroll ── */}
-          <div className="relative -mx-4 mb-10 sm:mx-0 sm:mb-12">
-            {/* Edge fade-маски (тільки на mobile) для індикації scroll */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-sich-cream-soft to-transparent sm:hidden" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-l from-sich-cream-soft to-transparent sm:hidden" />
-
-            <div className="overflow-x-auto px-4 pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:flex sm:justify-center sm:px-0">
-              <TabsList className="flex h-auto w-max flex-nowrap gap-1 rounded-full border border-sich-gold/20 bg-background p-1.5 shadow-sm">
+          {/* ─── Tab list: 2-3 рядки на mobile, single row pill на desktop ── */}
+          <div className="mb-10 sm:mb-12 sm:flex sm:justify-center">
+            <TabsList className="flex h-auto w-full flex-wrap justify-center gap-1.5 rounded-2xl border border-sich-gold/20 bg-background p-2 shadow-sm sm:w-max sm:flex-nowrap sm:gap-1 sm:rounded-full sm:p-1.5">
                 {menu.map((cat) => {
                   const Icon = categoryMeta[cat.id]?.Icon;
                   return (
@@ -99,8 +94,7 @@ export function Menu() {
                     </TabsTrigger>
                   );
                 })}
-              </TabsList>
-            </div>
+            </TabsList>
           </div>
 
           {menu.map((cat) => {
