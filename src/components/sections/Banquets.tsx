@@ -36,7 +36,7 @@ export function Banquets() {
               className="flex flex-col overflow-hidden rounded-lg bg-card shadow-md"
             >
               {/* Фото або gradient-fallback */}
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-square overflow-hidden bg-sich-cream-soft">
                 {b.src ? (
                   <>
                     <Image

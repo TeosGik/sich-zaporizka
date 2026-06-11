@@ -37,7 +37,7 @@ export function ChefRecommends() {
               className="flex flex-col overflow-hidden rounded-lg bg-card shadow-md transition-shadow hover:shadow-xl"
             >
               {/* Фото або gradient-fallback */}
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-square overflow-hidden bg-sich-cream-soft">
                 {dish.src ? (
                   <Image
                     src={dish.src}

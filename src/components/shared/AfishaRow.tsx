@@ -23,7 +23,7 @@ export function AfishaRow({ item, reverse = false }: AfishaRowProps) {
       )}
     >
       {/* Фото з parallax (або gradient як fallback) */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-2xl">
+      <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-sich-cream-soft shadow-2xl">
         <div
           className="absolute -inset-y-8 inset-x-0 will-change-transform"
           style={{ transform: "translate3d(0, var(--parallax-y, 0), 0)" }}
