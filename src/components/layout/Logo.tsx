@@ -20,18 +20,17 @@ export function Logo({ className, variant = "default" }: LogoProps) {
         className,
       )}
     >
-      {/* Реальне фото козацької скульптури з подвір'я ресторану,
-          у круглому золотому обрамленні */}
-      <span className="relative inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-sich-cream p-0.5 shadow-md ring-2 ring-sich-gold/60 sm:size-14">
-        <span className="relative h-full w-full overflow-hidden rounded-full">
-          <Image
-            src="/images/gallery/cossack.jpg"
-            alt=""
-            fill
-            sizes="56px"
-            className="object-cover object-[center_30%]"
-          />
-        </span>
+      {/* Козацький логотип — повна фігура з прозорим/білим фоном.
+          Використовуємо object-contain щоб не зрізати руки/вуса/ноги. */}
+      <span className="relative inline-flex size-14 shrink-0 items-center justify-center sm:size-16">
+        <Image
+          src="/images/logo/cossack.jpg"
+          alt=""
+          fill
+          sizes="64px"
+          className="object-contain drop-shadow-sm"
+          priority
+        />
       </span>
 
       {variant === "compact" ? (
