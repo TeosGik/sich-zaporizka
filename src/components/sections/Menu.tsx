@@ -106,13 +106,7 @@ export function Menu() {
                     <section
                       key={sub.id}
                       aria-labelledby={`sub-${sub.id}`}
-                      className={cn(
-                        "overflow-hidden rounded-xl border border-sich-gold/15 shadow-sm transition-shadow hover:shadow-md",
-                        // Чергуємо тон фону для розділення
-                        subIndex % 2 === 0
-                          ? "bg-background"
-                          : "bg-sich-cream/50",
-                      )}
+                      className="overflow-hidden rounded-xl border border-sich-gold/15 bg-white shadow-sm transition-shadow hover:shadow-md"
                     >
                       {/* ─── Заголовок підкатегорії ──────────────────── */}
                       <header className="flex items-center gap-3 border-b border-sich-gold/20 bg-gradient-to-r from-sich-gold/8 to-transparent px-5 py-4 sm:gap-4 sm:px-7 sm:py-5">
@@ -136,12 +130,12 @@ export function Menu() {
                           <li
                             key={`${sub.id}-${i}`}
                             className={cn(
-                              "grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-1.5 px-5 py-3.5 transition-colors hover:bg-sich-gold/[0.08] sm:px-7 sm:py-4",
-                              // Чергуємо темну/світлу смугу для чіткого розділення
+                              "grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-1.5 px-5 py-3.5 transition-colors hover:bg-sich-gold/15 sm:px-7 sm:py-4",
+                              // Чергуємо: парні — біла строчка, непарні — темно-кремова
                               i % 2 === 0
-                                ? "bg-sich-cream/50"
-                                : "bg-transparent",
-                              dish.highlight && "!bg-sich-gold/[0.12]",
+                                ? "bg-white"
+                                : "bg-sich-cream-soft",
+                              dish.highlight && "!bg-sich-gold/20",
                             )}
                           >
                             <h4 className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5 break-words font-serif text-base leading-tight text-sich-ink sm:text-lg">
