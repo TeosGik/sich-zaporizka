@@ -130,14 +130,18 @@ export function Menu() {
                         </h3>
                       </header>
 
-                      {/* ─── Список страв ────────────────────────────── */}
-                      <ul className="divide-y divide-sich-gold/10">
+                      {/* ─── Список страв (зебра-смуги для розділення) ── */}
+                      <ul>
                         {sub.dishes.map((dish, i) => (
                           <li
                             key={`${sub.id}-${i}`}
                             className={cn(
-                              "grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-1.5 px-5 py-3.5 transition-colors hover:bg-sich-gold/[0.04] sm:px-7 sm:py-4",
-                              dish.highlight && "bg-sich-gold/[0.06]",
+                              "grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-1.5 px-5 py-3.5 transition-colors hover:bg-sich-gold/[0.08] sm:px-7 sm:py-4",
+                              // Чергуємо темну/світлу смугу для чіткого розділення
+                              i % 2 === 0
+                                ? "bg-sich-cream/50"
+                                : "bg-transparent",
+                              dish.highlight && "!bg-sich-gold/[0.12]",
                             )}
                           >
                             <h4 className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5 break-words font-serif text-base leading-tight text-sich-ink sm:text-lg">
