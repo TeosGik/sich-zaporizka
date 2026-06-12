@@ -59,8 +59,8 @@ export const gallery: readonly GalleryItem[] = [
   },
   {
     id: "g9",
-    alt: "Український орнаментальний рушник — деталь інтер'єру",
-    src: "/images/gallery/rushnyk.jpg",
+    alt: "Гостя ресторану — осінній день на Хортиці",
+    src: "/images/gallery/guest.jpg",
     gradient: { from: "#7a1f1f", via: "#b8893d", to: "#3c4a2a" },
   },
 ];

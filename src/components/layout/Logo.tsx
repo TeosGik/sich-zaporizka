@@ -24,7 +24,7 @@ export function Logo({ className, variant = "default" }: LogoProps) {
           Використовуємо object-contain щоб не зрізати руки/вуса/ноги. */}
       <span className="relative inline-flex size-14 shrink-0 items-center justify-center sm:size-16">
         <Image
-          src="/images/logo/cossack.jpg"
+          src="/images/logo/cossack.png"
           alt=""
           fill
           sizes="64px"
