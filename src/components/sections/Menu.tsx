@@ -131,11 +131,13 @@ export function Menu() {
                             key={`${sub.id}-${i}`}
                             className={cn(
                               "grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-1.5 border-b border-sich-gold/25 px-5 py-3.5 transition-colors last:border-b-0 hover:bg-sich-gold/20 sm:px-7 sm:py-4",
-                              // Чергуємо явно: біла → темно-беж → біла → темно-беж
+                              // Чергуємо строго: парна → біла, непарна → темно-беж (без винятків)
                               i % 2 === 0
                                 ? "bg-white"
                                 : "bg-[#e6d8b8]",
-                              dish.highlight && "!bg-sich-wine/15",
+                              // «Хіт» — тільки бордова смужка зліва, не ламає зебру
+                              dish.highlight &&
+                                "shadow-[inset_4px_0_0_var(--color-sich-wine)]",
                             )}
                           >
                             <h4 className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5 break-words font-serif text-base leading-tight text-sich-ink sm:text-lg">
